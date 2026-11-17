@@ -1,5 +1,5 @@
 variable "aws_region" {
-  description = "AWS region for S3 and regional resources. ACM for CloudFront must be in us-east-1."
+  description = "AWS region for S3 and regional resources."
   type        = string
   default     = "eu-west-1"
 }
@@ -34,24 +34,6 @@ variable "enable_versioning" {
   default     = false
 }
 
-variable "enable_spa_routing" {
-  description = "Serve index.html for 403/404 responses (React client-side routing)."
-  type        = bool
-  default     = true
-}
-
-variable "cloudfront_aliases" {
-  description = "Custom domain names for the distribution. When empty, dns_record_name is used as the alias if set."
-  type        = list(string)
-  default     = []
-}
-
-variable "acm_certificate_arn" {
-  description = "ACM certificate ARN in us-east-1. Required if cloudfront_aliases is non-empty."
-  type        = string
-  default     = null
-}
-
 variable "dns_zone_name" {
   description = "Route 53 zone name to create (e.g. example.com). Required unless route53_zone_id is set."
   type        = string
@@ -67,10 +49,4 @@ variable "dns_zone_force_destroy" {
   description = "Allow Terraform to delete the hosted zone when it contains records."
   type        = bool
   default     = false
-}
-
-variable "dns_record_name" {
-  description = "FQDN for alias records to CloudFront (e.g. www.example.com). Leave empty to skip DNS records."
-  type        = string
-  default     = ""
 }
