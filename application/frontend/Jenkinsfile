@@ -85,6 +85,22 @@ pipeline {
                 }
             }
         }
+        stage('Invalidate CloudFront') {
+            steps {
+                withCredentials([[
+                    $class: 'AmazonWebServicesCredentialsBinding',
+                    credentialsId: 'aws-frontend-terraform',
+                    accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                    secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                ]]) {
+                    sh """
+                        aws cloudfront create-invalidation \\
+                            --distribution-id YOUR_DISTRIBUTION_ID \\
+                            --paths "/*"
+                    """
+                }
+            }
+        }
     }
 
     post {
