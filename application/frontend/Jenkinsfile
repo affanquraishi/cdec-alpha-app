@@ -95,7 +95,7 @@ pipeline {
                 ]]) {
                     sh """
                         aws cloudfront create-invalidation \\
-                            --distribution-id YOUR_DISTRIBUTION_ID \\
+                            --distribution-id E8W2VX6XQ4GJ5 \\
                             --paths "/*"
                     """
                 }
